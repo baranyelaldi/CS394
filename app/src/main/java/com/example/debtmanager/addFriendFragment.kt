@@ -35,6 +35,7 @@ class addFriendFragment : Fragment(R.layout.fragment_add_friend) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddFriendBinding.bind(view)
+
     }
 
     companion object {

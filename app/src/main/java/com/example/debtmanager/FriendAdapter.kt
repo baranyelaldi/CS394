@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 
@@ -51,5 +52,11 @@ class FriendAdapter(private val friendList:ArrayList<Friend>) : RecyclerView.Ada
         holder.imageView.setImageResource(friend.image)
         holder.nameView.text = friend.name
         holder.debtView.text = friend.debt.toString()
+
+        if (friend.debt < 0) {
+            holder.debtView.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
+        } else if (friend.debt > 0) {
+            holder.debtView.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+        }
     }
 }

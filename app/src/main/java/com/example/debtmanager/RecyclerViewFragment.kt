@@ -59,8 +59,8 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
         friendList = ArrayList()
 
-        friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 0))
-        friendList.add(Friend(R.drawable.male, "Emirhan Alabas", 0))
+        friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 300))
+        friendList.add(Friend(R.drawable.male, "Emirhan Alabas", -100))
         friendList.add(Friend(R.drawable.male, "Egemen Yorulmaz", 0))
         friendList.add(Friend(R.drawable.male, "Yarkin Tarcin", 0))
         friendList.add(Friend(R.drawable.male, "Oruc Yigit Solak", 0))
@@ -87,6 +87,7 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
             view.findNavController().navigate(R.id.action_recyclerViewFragment_to_addFriendFragment)
         }
     }
+
 
 
     companion object {
