@@ -1,5 +1,6 @@
 package com.example.debtmanager
 
+import Friend
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -63,9 +64,18 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
         friendAdapter = FriendAdapter(friendList)
         recyclerView.adapter = friendAdapter
-        friendAdapter.setOnItemClickListener(object : FriendAdapter.onItemClickListener{
+        friendAdapter.setOnItemClickListener(object : FriendAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
-                view.findNavController().navigate(R.id.action_recyclerViewFragment_to_friendFragment)
+                val clickedFriend: Friend = friendList[position]
+
+                // Pass data to the FriendFragment using Bundle
+                val bundle = Bundle()
+                bundle.putParcelable("clickedFriend", clickedFriend)
+
+                val friendFragment = FriendFragment()
+                friendFragment.arguments = bundle
+
+                view.findNavController().navigate(R.id.action_recyclerViewFragment_to_friendFragment, bundle)
             }
         })
         }

@@ -1,10 +1,13 @@
 package com.example.debtmanager
 
+import Friend
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.debtmanager.databinding.FragmentFriendBinding
+import com.example.debtmanager.databinding.FragmentLoginBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,8 +19,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FriendFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FriendFragment : Fragment() {
+class FriendFragment : Fragment(R.layout.fragment_friend) {
     // TODO: Rename and change types of parameters
+    private lateinit var binding: FragmentFriendBinding
     private var param1: String? = null
     private var param2: String? = null
 
@@ -36,6 +40,23 @@ class FriendFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_friend, container, false)
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentFriendBinding.bind(view)
+
+        val bundle = arguments
+        if (bundle != null && bundle.containsKey("clickedFriend")) {
+            val clickedFriend: Friend? = bundle.getParcelable("clickedFriend")
+            if (clickedFriend != null) {
+                binding.name.setText(clickedFriend.name)
+                binding.titleImage.setImageResource(clickedFriend.image)
+                binding.debt.setText(clickedFriend.debt.toString())
+            }
+        }
+    }
+
 
     companion object {
         /**
