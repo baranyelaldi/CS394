@@ -56,8 +56,8 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
         friendList = ArrayList()
 
-        friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 0, 0))
-        friendList.add(Friend(R.drawable.male, "Emirhan Alabas", 10, 5))
+        friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 0))
+        friendList.add(Friend(R.drawable.male, "Emirhan Alabas", 0))
 
         friendAdapter = FriendAdapter(friendList)
         recyclerView.adapter = friendAdapter
