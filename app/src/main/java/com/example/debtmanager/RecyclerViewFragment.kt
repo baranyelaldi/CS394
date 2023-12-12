@@ -61,6 +61,10 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
         friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 0))
         friendList.add(Friend(R.drawable.male, "Emirhan Alabas", 0))
+        friendList.add(Friend(R.drawable.male, "Egemen Yorulmaz", 0))
+        friendList.add(Friend(R.drawable.male, "Yarkin Tarcin", 0))
+        friendList.add(Friend(R.drawable.male, "Oruc Yigit Solak", 0))
+        friendList.add(Friend(R.drawable.female, "Bercan Yelaldi", 0))
 
         friendAdapter = FriendAdapter(friendList)
         recyclerView.adapter = friendAdapter
