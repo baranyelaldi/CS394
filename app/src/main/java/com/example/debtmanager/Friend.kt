@@ -1,7 +1,7 @@
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Friend(val image: Int, val name: String, val debt: Int) : Parcelable {
+data class Friend(val image: Int, val name: String, var debt: Int) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",

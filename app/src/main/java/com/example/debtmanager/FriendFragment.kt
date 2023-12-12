@@ -1,27 +1,22 @@
 package com.example.debtmanager
 
+import DebtViewModel
 import Friend
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import androidx.fragment.app.viewModels
 import com.example.debtmanager.databinding.FragmentFriendBinding
-import com.example.debtmanager.databinding.FragmentLoginBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FriendFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FriendFragment : Fragment(R.layout.fragment_friend) {
-    // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentFriendBinding
+    private val viewModel: DebtViewModel by viewModels()
     private var param1: String? = null
     private var param2: String? = null
 
@@ -46,13 +41,28 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFriendBinding.bind(view)
 
+        viewModel.changeDebt.observe(viewLifecycleOwner) {
+                newValue -> binding.change.setText(newValue.toString())
+        }
+
+        viewModel.debt.observe(viewLifecycleOwner) {
+                newValue -> binding.debt.setText(newValue.toString())
+        }
+
         val bundle = arguments
         if (bundle != null && bundle.containsKey("clickedFriend")) {
             val clickedFriend: Friend? = bundle.getParcelable("clickedFriend")
-            if (clickedFriend != null) {
-                binding.name.setText(clickedFriend.name)
-                binding.titleImage.setImageResource(clickedFriend.image)
-                binding.debt.setText(clickedFriend.debt.toString())
+            clickedFriend?.let {
+                binding.name.text = it.name
+                binding.titleImage.setImageResource(it.image)
+
+                binding.borrow.setOnClickListener { _ ->
+                    viewModel.changeFriendDebt(it, true)
+                }
+
+                binding.pay.setOnClickListener { _ ->
+                    viewModel.changeFriendDebt(it, false)
+                }
             }
         }
     }

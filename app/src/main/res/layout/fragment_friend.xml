@@ -35,31 +35,30 @@
         app:layout_constraintTop_toBottomOf="@+id/title_image"
         tools:layout_editor_absoluteX="95dp" />
 
-    <TextView
-        android:id="@+id/debt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:gravity="center"
-        android:text="Total Debt"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/title_image"
-        tools:layout_editor_absoluteX="0dp" />
-
     <EditText
         android:id="@+id/change"
         android:layout_width="158dp"
         android:layout_height="45dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="110dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/debt"
+        app:layout_constraintTop_toBottomOf="@+id/title_image"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/debt"
+        android:layout_width="158dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_image"
         tools:ignore="MissingConstraints" />
 
     <Button
