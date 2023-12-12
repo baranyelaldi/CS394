@@ -1,10 +1,12 @@
 package com.example.debtmanager
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.debtmanager.databinding.FragmentRecyclerViewBinding
@@ -56,12 +58,17 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
         friendList = ArrayList()
 
-        friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 0, 0))
-        friendList.add(Friend(R.drawable.male, "Emirhan Alabas", 10, 5))
+        friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 0))
+        friendList.add(Friend(R.drawable.male, "Emirhan Alabas", 0))
 
         friendAdapter = FriendAdapter(friendList)
         recyclerView.adapter = friendAdapter
-    }
+        friendAdapter.setOnItemClickListener(object : FriendAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                view.findNavController().navigate(R.id.action_recyclerViewFragment_to_friendFragment)
+            }
+        })
+        }
 
 
     companion object {
