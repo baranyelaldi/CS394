@@ -24,10 +24,10 @@ class DebtViewModel : ViewModel() {
     fun changeFriendDebt(friend: Friend, isBorrow: Boolean) {
         if (isBorrow) {
             _debt.value = _debt.value!! + _changeDebt.value!!
-            _changeDebt.value = 5
+            _changeDebt.value = 0
         } else {
             _debt.value = _debt.value!! - _changeDebt.value!!
-            _changeDebt.value = 6
+            _changeDebt.value = 0
         }
     }
 }

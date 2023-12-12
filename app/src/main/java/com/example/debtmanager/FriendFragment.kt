@@ -57,10 +57,14 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
                 binding.titleImage.setImageResource(it.image)
 
                 binding.borrow.setOnClickListener { _ ->
+                    val newValueFromTextField = binding.change.text.toString().toIntOrNull() ?: 0
+                    viewModel.setChangeDebt(newValueFromTextField)
                     viewModel.changeFriendDebt(it, true)
                 }
 
                 binding.pay.setOnClickListener { _ ->
+                    val newValueFromTextField = binding.change.text.toString().toIntOrNull() ?: 0
+                    viewModel.setChangeDebt(newValueFromTextField)
                     viewModel.changeFriendDebt(it, false)
                 }
             }
