@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.debtmanager.data.debts
@@ -14,12 +15,15 @@ import com.example.debtmanager.data.names
 import com.example.debtmanager.databinding.FragmentFriendBinding
 import com.example.debtmanager.viewmodel.DebtViewModel
 import com.example.debtmanager.Friend
+import com.example.debtmanager.databinding.FragmentRecyclerViewBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class FriendFragment : Fragment(R.layout.fragment_friend) {
+
     private lateinit var binding: FragmentFriendBinding
+
     private val viewModel: DebtViewModel by viewModels()
     private var param1: String? = null
     private var param2: String? = null
@@ -36,16 +40,17 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_friend, container, false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend, container, false)
+        return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentFriendBinding.bind(view)
 
-
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
 
         val bundle = arguments
         if (bundle != null && bundle.containsKey("clickedFriend")) {
@@ -58,25 +63,18 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
 
                 binding.borrow.setOnClickListener { _ ->
                     val newValueFromTextField = binding.change.text.toString().toIntOrNull() ?: 0
-                    viewModel.setChangeDebt(newValueFromTextField)
+                    binding.viewmodel!!.setChangeDebt(newValueFromTextField)
                     viewModel.changeFriendDebt(it, true)
+                    debts[clickedPosition!!] = viewModel.debt.value!!
                 }
 
                 binding.pay.setOnClickListener { _ ->
                     val newValueFromTextField = binding.change.text.toString().toIntOrNull() ?: 0
-                    viewModel.setChangeDebt(newValueFromTextField)
+                    binding.viewmodel!!.setChangeDebt(newValueFromTextField)
                     viewModel.changeFriendDebt(it, false)
+                    debts[clickedPosition!!] = viewModel.debt.value!!
                 }
 
-                viewModel.changeDebt.observe(viewLifecycleOwner) {
-                        newValue -> binding.change.setText(newValue.toString())
-                        debts[clickedPosition!!] = viewModel.debt.value!!
-                }
-
-                viewModel.debt.observe(viewLifecycleOwner) {
-                        newValue -> binding.debt.setText(newValue.toString())
-                        debts[clickedPosition!!] = viewModel.debt.value!!
-                }
 
                 binding.removeFriend.setOnClickListener{
                     if(viewModel.debt.value == 0){
