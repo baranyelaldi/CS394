@@ -1,3 +1,6 @@
+package com.example.debtmanager.viewmodel
+
+import com.example.debtmanager.Friend
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

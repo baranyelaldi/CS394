@@ -1,3 +1,5 @@
+package com.example.debtmanager
+
 import android.os.Parcel
 import android.os.Parcelable
 

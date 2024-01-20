@@ -1,6 +1,6 @@
 package com.example.debtmanager
 
-import Friend
+import com.example.debtmanager.Friend
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

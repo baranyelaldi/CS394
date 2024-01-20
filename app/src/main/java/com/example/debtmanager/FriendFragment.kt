@@ -1,7 +1,5 @@
 package com.example.debtmanager
 
-import DebtViewModel
-import Friend
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +12,8 @@ import com.example.debtmanager.data.debts
 import com.example.debtmanager.data.images
 import com.example.debtmanager.data.names
 import com.example.debtmanager.databinding.FragmentFriendBinding
+import com.example.debtmanager.viewmodel.DebtViewModel
+import com.example.debtmanager.Friend
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"

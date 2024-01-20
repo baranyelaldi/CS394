@@ -1,106 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FriendFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/title_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/male"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="16dp" />
+    <data>
+        <variable name = "viewmodel"
+            type = "com.example.debtmanager.viewmodel.DebtViewModel"/>
 
-    <TextView
-        android:id="@+id/name"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Name"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed"
-        app:layout_constraintTop_toBottomOf="@+id/title_image"
-        tools:layout_editor_absoluteX="95dp" />
+        android:layout_height="match_parent"
+        tools:context=".FriendFragment">
 
-    <EditText
-        android:id="@+id/change"
-        android:layout_width="158dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="110dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_image"
-        tools:ignore="MissingConstraints" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/title_image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/male"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="16dp" />
 
-    <EditText
-        android:id="@+id/debt"
-        android:layout_width="158dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="50dp"
-        android:inputType="none"
-        android:focusable="false"
-        android:clickable="false"
-        android:cursorVisible="false"
-        android:ems="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_image"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            app:layout_constraintTop_toBottomOf="@+id/title_image"
+            tools:layout_editor_absoluteX="95dp" />
 
-    <Button
-        android:id="@+id/pay"
-        android:layout_width="123dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="32dp"
-        android:text="Pay Debt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change"
-        app:layout_constraintVertical_bias="0.151"
-        tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/change"
+            android:layout_width="158dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="110dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_image"
+            tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/borrow"
-        android:layout_width="123dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="32dp"
-        android:text="Borrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.805"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change"
-        app:layout_constraintVertical_bias="0.151"
-        tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/debt"
+            android:layout_width="158dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="50dp"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:ems="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_image"
+            tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/removeFriend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remove Friend"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/pay"
+            android:layout_width="123dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="32dp"
+            android:text="Pay Debt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change"
+            app:layout_constraintVertical_bias="0.151"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/borrow"
+            android:layout_width="123dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="32dp"
+            android:text="Borrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.805"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change"
+            app:layout_constraintVertical_bias="0.151"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/removeFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove Friend"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="16dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
