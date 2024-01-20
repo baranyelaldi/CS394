@@ -14,6 +14,11 @@ import com.example.debtmanager.data.debts
 import com.example.debtmanager.data.images
 import com.example.debtmanager.data.names
 import com.example.debtmanager.databinding.FragmentRecyclerViewBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +41,8 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var friendList: ArrayList<Friend>
     private lateinit var friendAdapter: FriendAdapter
+
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +68,6 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
         friendList = ArrayList()
 
-        for (i in 0 until debts.size) {
-            totalDebt += debts[i]
-            friendList.add(Friend(images[i], names[i], debts[i]))
-        }
 
         val totalDebtString = "Total Debt: $totalDebt"
         binding.totalDebtTextView.text = totalDebtString
@@ -87,12 +90,42 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
         recyclerView.adapter = friendAdapter
 
+        getFriends()
+
         friendAdapter.submitList(friendList)
 
         binding.addFriendButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_recyclerViewFragment_to_addFriendFragment)
         }
     }
+
+    private fun getFriends() {
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Friends")
+        dbRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                friendList.clear()
+                if (snapshot.exists()) {
+                    for (friendSnap in snapshot.children) {
+                        val debt = friendSnap.child("debt").getValue(Int::class.java) ?: 0
+                        val image = friendSnap.child("image").getValue(Int::class.java) ?: 0
+                        val name = friendSnap.child("name").getValue(String::class.java) ?: ""
+
+                        val friendData = Friend(image, name, debt)
+                        friendList.add(friendData)
+                    }
+                    friendAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+    }
+
 
 
 

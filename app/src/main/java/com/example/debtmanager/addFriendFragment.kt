@@ -12,6 +12,8 @@ import com.example.debtmanager.data.debts
 import com.example.debtmanager.data.images
 import com.example.debtmanager.data.names
 import com.example.debtmanager.databinding.FragmentAddFriendBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -21,6 +23,7 @@ class addFriendFragment : Fragment(R.layout.fragment_add_friend) {
     private lateinit var binding: FragmentAddFriendBinding
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,16 +44,22 @@ class addFriendFragment : Fragment(R.layout.fragment_add_friend) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddFriendBinding.bind(view)
+        dbRef = FirebaseDatabase.getInstance().getReference("Friends")
 
         binding.buttonLogin.setOnClickListener{
+
+            saveFriendData()
+
             if(validate()){
                 debts.add(binding.addDebt.text.toString().toInt())
                 names.add(binding.addName.text.toString())
-                if(binding.radioGroup.checkedRadioButtonId == 0){
-                    images.add(R.drawable.female)
-                }else{
-                    images.add(R.drawable.male)
+                val selectedRadioButtonId = binding.radioGroup.checkedRadioButtonId
+                val imageId = if (selectedRadioButtonId == R.id.Male) {
+                    R.drawable.male
+                } else {
+                    R.drawable.female
                 }
+                images.add(imageId)
                 view.findNavController().navigate(R.id.action_addFriendFragment_to_recyclerViewFragment)
             }else{
                 Toast.makeText(requireContext(), "Please enter all fields!", Toast.LENGTH_SHORT).show()
@@ -70,6 +79,30 @@ class addFriendFragment : Fragment(R.layout.fragment_add_friend) {
             return false
         }
         return true
+    }
+
+    private fun saveFriendData() {
+        val friendName = binding.addName.text.toString()
+        val friendDebt = binding.addDebt.text.toString().toInt()
+        val friendId = dbRef.push().key!!
+        val selectedRadioButtonId = binding.radioGroup.checkedRadioButtonId
+        val imageId = if (selectedRadioButtonId == R.id.Male) {
+            R.drawable.male
+        } else {
+            R.drawable.female
+        }
+
+        val friend = Friend(
+            imageId,
+            friendName,
+            friendDebt
+        )
+        dbRef.child(friendId).setValue(friend)
+            .addOnCompleteListener{
+                Toast.makeText(requireContext(), "Data added successfully", Toast.LENGTH_LONG).show()
+            } .addOnFailureListener{
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_LONG).show()
+            }
     }
 
     companion object {
