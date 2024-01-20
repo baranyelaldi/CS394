@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.debtmanager.HomeFragment"
+        android:name="com.example.debtmanager.model.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/recyclerViewFragment"
-        android:name="com.example.debtmanager.RecyclerViewFragment"
+        android:name="com.example.debtmanager.model.RecyclerViewFragment"
         android:label="fragment_recycler_view"
         tools:layout="@layout/fragment_recycler_view" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/friendFragment"
-        android:name="com.example.debtmanager.FriendFragment"
+        android:name="com.example.debtmanager.model.FriendFragment"
         android:label="fragment_friend"
         tools:layout="@layout/fragment_friend" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFriendFragment"
-        android:name="com.example.debtmanager.addFriendFragment"
+        android:name="com.example.debtmanager.model.addFriendFragment"
         android:label="fragment_add_friend"
         tools:layout="@layout/fragment_add_friend" >
         <action

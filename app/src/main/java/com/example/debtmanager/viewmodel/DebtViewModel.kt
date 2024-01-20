@@ -1,6 +1,5 @@
 package com.example.debtmanager.viewmodel
 
-import com.example.debtmanager.Friend
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +8,6 @@ class DebtViewModel : ViewModel() {
     private var _changeDebt = MutableLiveData<Int>(0)
 
     private var _debt = MutableLiveData<Int>(0)
-
-    val changeDebt: LiveData<Int>
-        get() = _changeDebt
 
     fun setChangeDebt(newDebt: Int) {
         _changeDebt.value = newDebt
@@ -24,7 +20,7 @@ class DebtViewModel : ViewModel() {
         _debt.value = newDebt
     }
 
-    fun changeFriendDebt(friend: Friend, isBorrow: Boolean) {
+    fun changeFriendDebt(isBorrow: Boolean) {
         if (isBorrow) {
             _debt.value = _debt.value!! + _changeDebt.value!!
             _changeDebt.value = 0

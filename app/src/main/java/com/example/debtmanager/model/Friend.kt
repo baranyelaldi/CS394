@@ -1,4 +1,4 @@
-package com.example.debtmanager
+package com.example.debtmanager.model
 
 import android.os.Parcel
 import android.os.Parcelable

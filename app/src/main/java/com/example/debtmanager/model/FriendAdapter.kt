@@ -1,6 +1,5 @@
-package com.example.debtmanager
+package com.example.debtmanager.model
 
-import com.example.debtmanager.Friend
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.debtmanager.R
 import com.google.android.material.imageview.ShapeableImageView
 
 class FriendAdapter(private val mListener: OnItemClickListener) :
