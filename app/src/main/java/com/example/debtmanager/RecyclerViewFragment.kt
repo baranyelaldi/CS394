@@ -39,15 +39,12 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_recycler_view, container, false)
     }
@@ -60,26 +57,22 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-
-        var totalDebt = 0;
+        var totalDebt = 0
 
         friendList = ArrayList()
 
-        for(i in 0..<debts.size){
+        for (i in 0 until debts.size) {
             totalDebt += debts[i]
             friendList.add(Friend(images[i], names[i], debts[i]))
         }
 
         val totalDebtString = "Total Debt: $totalDebt"
-        binding.totalDebtTextView.setText(totalDebtString)
+        binding.totalDebtTextView.text = totalDebtString
 
-        friendAdapter = FriendAdapter(friendList)
-        recyclerView.adapter = friendAdapter
-        friendAdapter.setOnItemClickListener(object : FriendAdapter.onItemClickListener {
+        friendAdapter = FriendAdapter(object : FriendAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val clickedFriend: Friend = friendList[position]
 
-                // Pass data to the FriendFragment using Bundle
                 val bundle = Bundle()
                 bundle.putParcelable("clickedFriend", clickedFriend)
                 bundle.putInt("clickedPosition", position)
@@ -87,11 +80,16 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
                 val friendFragment = FriendFragment()
                 friendFragment.arguments = bundle
 
-                view.findNavController().navigate(R.id.action_recyclerViewFragment_to_friendFragment, bundle)
+                view.findNavController()
+                    .navigate(R.id.action_recyclerViewFragment_to_friendFragment, bundle)
             }
         })
 
-        binding.addFriendButton.setOnClickListener{
+        recyclerView.adapter = friendAdapter
+
+        friendAdapter.submitList(friendList)
+
+        binding.addFriendButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_recyclerViewFragment_to_addFriendFragment)
         }
     }

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.debtmanager.data.debts
