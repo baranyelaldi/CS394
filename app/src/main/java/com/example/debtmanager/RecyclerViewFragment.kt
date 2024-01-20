@@ -64,13 +64,7 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        var totalDebt = 0
-
         friendList = ArrayList()
-
-
-        val totalDebtString = "Total Debt: $totalDebt"
-        binding.totalDebtTextView.text = totalDebtString
 
         friendAdapter = FriendAdapter(object : FriendAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
@@ -116,6 +110,15 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
                         friendList.add(friendData)
                     }
                     friendAdapter.notifyDataSetChanged()
+
+                    var totalDebt = 0
+
+                    for(friend in friendList) {
+                        totalDebt += friend.debt
+                    }
+
+                    val totalDebtString = "Total Debt: $totalDebt₺"
+                    binding.totalDebtTextView.text = totalDebtString
                 }
             }
 

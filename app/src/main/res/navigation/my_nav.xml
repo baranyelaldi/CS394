@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.debtmanager.loginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:id="@+id/homeFragment"
+        android:name="com.example.debtmanager.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_loginFragment_to_recyclerViewFragment"
+            android:id="@+id/action_homeFragment_to_recyclerViewFragment"
             app:destination="@id/recyclerViewFragment" />
     </fragment>
     <fragment
@@ -24,7 +24,7 @@
             app:destination="@id/friendFragment" />
         <action
             android:id="@+id/action_recyclerViewFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_recyclerViewFragment_to_addFriendFragment"
             app:destination="@id/addFriendFragment" />
