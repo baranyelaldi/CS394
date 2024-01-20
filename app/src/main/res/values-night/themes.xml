@@ -3,5 +3,14 @@
     <style name="Base.Theme.DebtManager" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
     </style>
+
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>
