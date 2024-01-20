@@ -5,6 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
+import androidx.navigation.findNavController
+import com.example.debtmanager.data.debts
+import com.example.debtmanager.data.images
+import com.example.debtmanager.data.names
 import com.example.debtmanager.databinding.FragmentAddFriendBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -36,6 +42,34 @@ class addFriendFragment : Fragment(R.layout.fragment_add_friend) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddFriendBinding.bind(view)
 
+        binding.buttonLogin.setOnClickListener{
+            if(validate()){
+                debts.add(binding.addDebt.text.toString().toInt())
+                names.add(binding.addName.text.toString())
+                if(binding.radioGroup.checkedRadioButtonId == 0){
+                    images.add(R.drawable.female)
+                }else{
+                    images.add(R.drawable.male)
+                }
+                view.findNavController().navigate(R.id.action_addFriendFragment_to_recyclerViewFragment)
+            }else{
+                Toast.makeText(requireContext(), "Please enter all fields!", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
+    fun validate() : Boolean{
+        if(binding.addName.text.isEmpty()){
+            return false
+        }
+        if(binding.addDebt.text.isEmpty()){
+            return false
+        }
+        if(binding.radioGroup.checkedRadioButtonId == -1){
+            return false
+        }
+        return true
     }
 
     companion object {

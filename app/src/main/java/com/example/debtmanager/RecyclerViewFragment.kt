@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.debtmanager.data.debts
+import com.example.debtmanager.data.images
+import com.example.debtmanager.data.names
 import com.example.debtmanager.databinding.FragmentRecyclerViewBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -57,14 +60,18 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+
+        var totalDebt = 0;
+
         friendList = ArrayList()
 
-        friendList.add(Friend(R.drawable.male, "Baran Yelaldi", 300))
-        friendList.add(Friend(R.drawable.male, "Emirhan Alabas", -100))
-        friendList.add(Friend(R.drawable.male, "Egemen Yorulmaz", 0))
-        friendList.add(Friend(R.drawable.male, "Yarkin Tarcin", 0))
-        friendList.add(Friend(R.drawable.male, "Oruc Yigit Solak", 0))
-        friendList.add(Friend(R.drawable.male, "Bercan Yelaldi", 0))
+        for(i in 0..<debts.size){
+            totalDebt += debts[i]
+            friendList.add(Friend(images[i], names[i], debts[i]))
+        }
+
+        val totalDebtString = "Total Debt: $totalDebt"
+        binding.totalDebtTextView.setText(totalDebtString)
 
         friendAdapter = FriendAdapter(friendList)
         recyclerView.adapter = friendAdapter
@@ -75,6 +82,7 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
                 // Pass data to the FriendFragment using Bundle
                 val bundle = Bundle()
                 bundle.putParcelable("clickedFriend", clickedFriend)
+                bundle.putInt("clickedPosition", position)
 
                 val friendFragment = FriendFragment()
                 friendFragment.arguments = bundle

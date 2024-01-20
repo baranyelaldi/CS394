@@ -7,8 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.example.debtmanager.data.debts
+import com.example.debtmanager.data.images
+import com.example.debtmanager.data.names
 import com.example.debtmanager.databinding.FragmentFriendBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -41,20 +46,16 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFriendBinding.bind(view)
 
-        viewModel.changeDebt.observe(viewLifecycleOwner) {
-                newValue -> binding.change.setText(newValue.toString())
-        }
 
-        viewModel.debt.observe(viewLifecycleOwner) {
-                newValue -> binding.debt.setText(newValue.toString())
-        }
 
         val bundle = arguments
         if (bundle != null && bundle.containsKey("clickedFriend")) {
             val clickedFriend: Friend? = bundle.getParcelable("clickedFriend")
+            val clickedPosition: Int? = bundle.getInt("clickedPosition")
             clickedFriend?.let {
                 binding.name.text = it.name
                 binding.titleImage.setImageResource(it.image)
+                viewModel.setDebt(clickedFriend.debt)
 
                 binding.borrow.setOnClickListener { _ ->
                     val newValueFromTextField = binding.change.text.toString().toIntOrNull() ?: 0
@@ -66,6 +67,28 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
                     val newValueFromTextField = binding.change.text.toString().toIntOrNull() ?: 0
                     viewModel.setChangeDebt(newValueFromTextField)
                     viewModel.changeFriendDebt(it, false)
+                }
+
+                viewModel.changeDebt.observe(viewLifecycleOwner) {
+                        newValue -> binding.change.setText(newValue.toString())
+                        debts[clickedPosition!!] = viewModel.debt.value!!
+                }
+
+                viewModel.debt.observe(viewLifecycleOwner) {
+                        newValue -> binding.debt.setText(newValue.toString())
+                        debts[clickedPosition!!] = viewModel.debt.value!!
+                }
+
+                binding.removeFriend.setOnClickListener{
+                    if(viewModel.debt.value == 0){
+                        debts.removeAt(clickedPosition!!)
+                        names.removeAt(clickedPosition!!)
+                        images.removeAt(clickedPosition!!)
+
+                        view.findNavController().navigate(R.id.action_friendFragment_to_recyclerViewFragment)
+                    }else{
+                        Toast.makeText(requireContext(), "Settle the debt before removing the friend!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
