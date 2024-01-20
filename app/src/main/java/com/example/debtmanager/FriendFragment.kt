@@ -16,6 +16,8 @@ import com.example.debtmanager.databinding.FragmentFriendBinding
 import com.example.debtmanager.viewmodel.DebtViewModel
 import com.example.debtmanager.Friend
 import com.example.debtmanager.databinding.FragmentRecyclerViewBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -27,6 +29,7 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
     private val viewModel: DebtViewModel by viewModels()
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +44,6 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_friend, container, false)
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -61,11 +63,17 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
                 binding.titleImage.setImageResource(it.image)
                 viewModel.setDebt(clickedFriend.debt)
 
+                val friendId = it.id
+
                 binding.borrow.setOnClickListener { _ ->
                     val newValueFromTextField = binding.change.text.toString().toIntOrNull() ?: 0
                     binding.viewmodel!!.setChangeDebt(newValueFromTextField)
                     viewModel.changeFriendDebt(it, true)
                     debts[clickedPosition!!] = viewModel.debt.value!!
+
+                    updateDatabase(friendId, viewModel.debt.value)
+
+                    binding.change.text.clear()
                 }
 
                 binding.pay.setOnClickListener { _ ->
@@ -73,7 +81,12 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
                     binding.viewmodel!!.setChangeDebt(newValueFromTextField)
                     viewModel.changeFriendDebt(it, false)
                     debts[clickedPosition!!] = viewModel.debt.value!!
+
+                    updateDatabase(friendId, viewModel.debt.value)
+
+                    binding.change.text.clear()
                 }
+
 
 
                 binding.removeFriend.setOnClickListener{
@@ -82,13 +95,30 @@ class FriendFragment : Fragment(R.layout.fragment_friend) {
                         names.removeAt(clickedPosition!!)
                         images.removeAt(clickedPosition!!)
 
+                        deleteFromDatabase(friendId)
+
                         view.findNavController().navigate(R.id.action_friendFragment_to_recyclerViewFragment)
+                        Toast.makeText(requireContext(), "Friend is removed.", Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(requireContext(), "Settle the debt before removing the friend!", Toast.LENGTH_SHORT).show()
                     }
                 }
+
+
             }
         }
+
+
+    }
+
+    private fun updateDatabase(friendId: String, debt: Int?) {
+        val dbRef = FirebaseDatabase.getInstance().getReference("Friends").child(friendId)
+        dbRef.child("debt").setValue(debt)
+    }
+
+    private fun deleteFromDatabase(friendId: String) {
+        val dbRef = FirebaseDatabase.getInstance().getReference("Friends").child(friendId)
+        dbRef.removeValue()
     }
 
 

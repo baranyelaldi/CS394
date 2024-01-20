@@ -107,11 +107,12 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
                 friendList.clear()
                 if (snapshot.exists()) {
                     for (friendSnap in snapshot.children) {
+                        val friendId = friendSnap.key ?: ""
                         val debt = friendSnap.child("debt").getValue(Int::class.java) ?: 0
                         val image = friendSnap.child("image").getValue(Int::class.java) ?: 0
                         val name = friendSnap.child("name").getValue(String::class.java) ?: ""
 
-                        val friendData = Friend(image, name, debt)
+                        val friendData = Friend(image, name, debt, friendId)
                         friendList.add(friendData)
                     }
                     friendAdapter.notifyDataSetChanged()

@@ -95,11 +95,12 @@ class addFriendFragment : Fragment(R.layout.fragment_add_friend) {
         val friend = Friend(
             imageId,
             friendName,
-            friendDebt
+            friendDebt,
+            friendId
         )
         dbRef.child(friendId).setValue(friend)
             .addOnCompleteListener{
-                Toast.makeText(requireContext(), "Data added successfully", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Friend added successfully", Toast.LENGTH_LONG).show()
             } .addOnFailureListener{
                 Toast.makeText(requireContext(), "Error", Toast.LENGTH_LONG).show()
             }
