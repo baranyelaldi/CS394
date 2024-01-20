@@ -120,7 +120,6 @@ class RecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })

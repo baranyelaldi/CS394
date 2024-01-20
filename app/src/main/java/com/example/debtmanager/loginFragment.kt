@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.debtmanager.databinding.FragmentLoginBinding
 
@@ -34,9 +35,18 @@ class loginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentLoginBinding.bind(view)
+
+        binding.logoURL = "https://i.ibb.co/n35BNTw/AAA.png";
 
         binding.buttonLogin.setOnClickListener{
             view.findNavController().navigate(R.id.action_loginFragment_to_recyclerViewFragment)
